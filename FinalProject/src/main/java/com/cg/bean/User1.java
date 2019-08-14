@@ -37,10 +37,9 @@ public class User1 {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User1(Integer userId, String emailid, String firstName, String lastName, String password, Long mobileNo,
+	public User1(String emailid, String firstName, String lastName, String password, Long mobileNo,
 			String address, String photo) {
 		super();
-		this.userId = userId;
 		this.emailid = emailid;
 		this.firstName = firstName;
 		this.lastName = lastName;

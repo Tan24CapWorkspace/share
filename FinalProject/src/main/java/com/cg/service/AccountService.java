@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cg.bean.Product;
-import com.cg.dao.AccountDAO;
+import com.cg.dao.ProductDAO;
 import com.cg.exception.ApplicationException;
 
 @Service
@@ -25,7 +25,7 @@ public class AccountService{
 
 	// To link the service and dao layer
 	@Autowired
-	private AccountDAO dao;
+	private ProductDAO dao;
 	
 	public List<Product> getProducts(String category, String subcategory){
 		return dao.getProductsFiltered(category, subcategory);

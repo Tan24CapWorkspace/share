@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -24,8 +25,9 @@ public class Product {
 	@Column
 	private String productName;
 	
-	@Column
-	private Integer mechantId;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="Merchant.merchantId")
+	private Merchant merchant;
 	
 	@ElementCollection
 	private List<String> tag;
@@ -39,9 +41,8 @@ public class Product {
 	@Column 
 	private String description;
 	
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name="Review.reviewId")
-	private List<Review> review;
+	@Column(length=5)
+	private Integer quantity;
 	
 	@Column
 	private String category;
@@ -53,19 +54,23 @@ public class Product {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Product(String productName, Integer mechantId, List<String> tag, String company, String photo,
-			String description, List<Review> review, String category, String subcategory) {
+	
+
+	public Product(String productName, Merchant merchant, List<String> tag, String company, String photo,
+			String description, Integer quantity, String category, String subcategory) {
 		super();
 		this.productName = productName;
-		this.mechantId = mechantId;
+		this.merchant = merchant;
 		this.tag = tag;
 		this.company = company;
 		this.photo = photo;
 		this.description = description;
-		this.review = review;
+		this.quantity = quantity;
 		this.category = category;
 		this.subcategory = subcategory;
 	}
+
+
 
 	public Integer getProductID() {
 		return productID;
@@ -83,12 +88,12 @@ public class Product {
 		this.productName = productName;
 	}
 
-	public Integer getMechantId() {
-		return mechantId;
+	public Merchant getMerchant() {
+		return merchant;
 	}
-
-	public void setMechantId(Integer mechantId) {
-		this.mechantId = mechantId;
+	
+	public void setMerchant(Merchant merchant) {
+		this.merchant = merchant;
 	}
 
 	public List<String> getTag() {
@@ -123,13 +128,6 @@ public class Product {
 		this.description = description;
 	}
 
-	public List<Review> getReview() {
-		return review;
-	}
-
-	public void setReview(List<Review> review) {
-		this.review = review;
-	}
 
 	public String getCategory() {
 		return category;
@@ -147,5 +145,11 @@ public class Product {
 		this.subcategory = subcategory;
 	}
 
+	public Integer getQuantity() {
+		return quantity;
+	}
 	
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
+	}
 }

@@ -55,11 +55,10 @@ public class Cart {
 		return products;
 	}
 
-	public void addProducts(Integer productId, Integer quantity) {
-		Integer[] array = {productId, quantity};
-		products.add(array);
+	public void setProducts(List<Integer[]> products) {
+		this.products = products;
 	}
-
+	
 	public Double getAmount() {
 		return amount;
 	}

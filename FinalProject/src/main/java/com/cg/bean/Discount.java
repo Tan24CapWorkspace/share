@@ -19,7 +19,7 @@ public class Discount {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Integer discountId;
 	
-	@OneToOne(fetch=FetchType.LAZY)
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="Product.productID")
 	private Product product;
 	
@@ -74,6 +74,12 @@ public class Discount {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	@Override
+	public String toString() {
+		return "Discount [discountId=" + discountId + ", product=" + product + ", discount=" + discount + ", startDate="
+				+ startDate + ", endDate=" + endDate + "]";
 	}
 	
 	

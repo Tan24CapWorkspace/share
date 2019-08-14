@@ -64,22 +64,15 @@ public class AppController {
 //		Product p = new Product(102, "Vivo", 100, null, "Vivo", null, "", "", "Electronics", "Mobile", 100, 100, 10, 100);
 		List<String> tags = new ArrayList<>();
 		tags.add("Vivo");
-		//p.setTag(tags);
+//		//p.setTag(tags);
 //		User1 u1=new User1("subbu@gmail.com","Subhanshu","Bigasia","subbu",9875463215L,"Pune","Link1");
 //		User1 u2=new User1("tanmay@gmail.com","Tanmay","Pathak","tanmay",9875463975L,"Pune","Link2");
 //		User1 u3=new User1("akhil@gmail.com","Akhil","Bigasia","akhil",8745463215L,"Pune","Link3");
 //		User1 u4=new User1("rohit@gmail.com","Rohit","Sammanwar","rohit",9563143215L,"Pune","Link4");
 //		User1 u5=new User1("prince@gmail.com","Prince","Kumar","prince",9856412347L,"Pune","Link5");
 //		Admin a=new Admin("Subhanshu","Bigasia","subbu@gmail.com","subbu@123","Link6");
-		//Merchant m=new Merchant("Naman","Jain","Jain Exports","naman@gmail.com",9875641234L,"nammujain","Link7",4.5);
-		
-//		Optional<Merchant> mer = merchantDAO.findById(7);
+//		Merchant m=new Merchant("Naman","Jain","Jain Exports","naman@gmail.com",9875641234L,"nammujain","Link7",4.5);
 //		
-//		Merchant m = mer.get();
-//		
-//		
-//		Product p=new Product("Vivo Y66",m,tags,"Vivo","Link8","Simple Mobile",10,"Electronics","Mobile");
-//		productDAO.saveAndFlush(p);
 //		user1DAO.saveAndFlush(u1);
 //		user1DAO.saveAndFlush(u2);
 //		user1DAO.saveAndFlush(u3);
@@ -89,6 +82,16 @@ public class AppController {
 //		merchantDAO.saveAndFlush(m);
 		
 		
+//		Optional<Merchant> mer = merchantDAO.findById(7);
+//		
+//		Merchant m1 = mer.get();
+//		
+//		
+//		Product p=new Product("Vivo Y66",m1,tags,"Vivo","Link8","Simple Mobile",10,"Electronics","Mobile",10,1000);
+//		
+//		productDAO.saveAndFlush(p);
+		
+		
 //		Optional<Product> box = productDAO.findById(9);
 //		if(box.isPresent()) {
 //			Product product = box.get();
@@ -96,13 +99,18 @@ public class AppController {
 //			productDAO.saveAndFlush(product);
 //		}
 		
-		Optional<Product> box = productDAO.findById(9);
+//		Optional<Product> box = productDAO.findById(8);
+//		if(box.isPresent()) {
+//			Product product = box.get();
+//			Discount d = new Discount(product, 5D, new Date(2019, 8, 14), new Date(2019, 8, 24));
+//			discountDAO.saveAndFlush(d);
+//		}
+//		
+		Optional<Discount> box = discountDAO.findById(11);
 		if(box.isPresent()) {
-			Product product = box.get();
-			Discount d = new Discount(product, 5D, new Date(2019, 8, 14), new Date(2019, 8, 24));
-			discountDAO.saveAndFlush(d);
-		}		
-		
+			Discount d = box.get();
+			System.out.println(d);
+		}
 	}
 	
 	

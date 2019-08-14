@@ -115,6 +115,13 @@ public class Merchant {
 	public void setRating(Double rating) {
 		this.rating = rating;
 	}
+
+	@Override
+	public String toString() {
+		return "Merchant [merchantId=" + merchantId + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", company=" + company + ", emailid=" + emailid + ", mobileno=" + mobileno + ", password=" + password
+				+ ", photo=" + photo + ", rating=" + rating + "]";
+	}
 	
 	
 	

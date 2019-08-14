@@ -50,14 +50,26 @@ public class Product {
 	@Column
 	private String subcategory;
 	
+	@Column
+	private Integer soldQuantities;
+	
+	@Column
+	private Integer price;
+	
+	
 	public Product() {
 		// TODO Auto-generated constructor stub
 	}
 
 	
 
+	
+
+
+
 	public Product(String productName, Merchant merchant, List<String> tag, String company, String photo,
-			String description, Integer quantity, String category, String subcategory) {
+			String description, Integer quantity, String category, String subcategory, Integer soldQuantities,
+			Integer price) {
 		super();
 		this.productName = productName;
 		this.merchant = merchant;
@@ -68,7 +80,53 @@ public class Product {
 		this.quantity = quantity;
 		this.category = category;
 		this.subcategory = subcategory;
+		this.soldQuantities = soldQuantities;
+		this.price = price;
 	}
+
+
+
+
+
+
+
+	public Integer getSoldQuantities() {
+		return soldQuantities;
+	}
+
+
+
+
+
+
+
+	public void setSoldQuantities(Integer soldQuantities) {
+		this.soldQuantities = soldQuantities;
+	}
+
+
+
+
+
+
+
+	public Integer getPrice() {
+		return price;
+	}
+
+
+
+
+
+
+
+	public void setPrice(Integer price) {
+		this.price = price;
+	}
+
+
+
+
 
 
 
@@ -152,4 +210,20 @@ public class Product {
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
+
+
+
+
+
+
+
+	@Override
+	public String toString() {
+		return "Product [productID=" + productID + ", productName=" + productName + ", merchant=" + merchant + ", tag="
+				+ tag + ", company=" + company + ", photo=" + photo + ", description=" + description + ", quantity="
+				+ quantity + ", category=" + category + ", subcategory=" + subcategory + ", soldQuantities="
+				+ soldQuantities + ", price=" + price + "]";
+	}
+	
+	
 }

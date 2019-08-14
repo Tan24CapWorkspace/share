@@ -9,8 +9,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="review")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Review {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)

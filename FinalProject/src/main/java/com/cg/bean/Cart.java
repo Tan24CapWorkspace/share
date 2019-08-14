@@ -15,8 +15,11 @@ import javax.persistence.Table;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="cart")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Cart {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)

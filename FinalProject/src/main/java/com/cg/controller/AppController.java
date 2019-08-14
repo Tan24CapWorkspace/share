@@ -33,7 +33,7 @@ import com.cg.dao.MerchantDAO;
 import com.cg.dao.ProductDAO;
 import com.cg.dao.User1DAO;
 import com.cg.exception.ApplicationException;
-import com.cg.service.AccountService;
+import com.cg.service.ProductService;
 import com.sun.swing.internal.plaf.metal.resources.metal;
 
 @RestController
@@ -41,7 +41,7 @@ import com.sun.swing.internal.plaf.metal.resources.metal;
 public class AppController {
 
 	@Autowired
-	private AccountService service;
+	private ProductService service;
 
 	@Autowired
 	private ProductDAO productDAO;
@@ -87,15 +87,15 @@ public class AppController {
 //		Merchant m1 = mer.get();
 //		
 //		
-//		Product p=new Product("Vivo Y66",m1,tags,"Vivo","Link8","Simple Mobile",10,"Electronics","Mobile",10,1000);
+//		Product p=new Product("Vivo Y67",m1,tags,"Vivo","Link8","Simple Mobile",10,"Electronics","Mobile",10,1000, new Date(2019, 8, 14));
 //		
 //		productDAO.saveAndFlush(p);
 		
-		
-//		Optional<Product> box = productDAO.findById(9);
+//		
+//		Optional<Product> box = productDAO.findById(8);
 //		if(box.isPresent()) {
 //			Product product = box.get();
-//			product.setQuantity(100);
+//			product.setReleaseDate(new Date(2019, 8, 14));
 //			productDAO.saveAndFlush(product);
 //		}
 		
@@ -106,11 +106,13 @@ public class AppController {
 //			discountDAO.saveAndFlush(d);
 //		}
 //		
-		Optional<Discount> box = discountDAO.findById(11);
-		if(box.isPresent()) {
-			Discount d = box.get();
-			System.out.println(d);
-		}
+//		Optional<Discount> box = discountDAO.findById(11);
+//		if(box.isPresent()) {
+//			Discount d = box.get();
+//			System.out.println(d);
+//			Product p = d.getProduct();
+//			System.out.println(p.getProductName());
+//		}
 	}
 	
 	
@@ -129,6 +131,17 @@ public class AppController {
 	public List<Product> getSimilarProducts(@RequestParam String category, @RequestParam String subcategory, @RequestParam Integer productId) {
 		try {
 			return service.getSimilarProducts(category, subcategory, productId);
+		} catch (ApplicationException ex) {
+			return null;
+		}
+	}
+	
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/getproducts")
+	public List<Product> getProducts() {
+		try {
+			return service.getProducts();
 		} catch (ApplicationException ex) {
 			return null;
 		}

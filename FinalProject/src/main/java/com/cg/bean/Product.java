@@ -1,5 +1,6 @@
 package com.cg.bean;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -15,8 +16,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="product")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Product {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
@@ -57,6 +61,8 @@ public class Product {
 	private Integer price;
 	
 	
+	private Date releaseDate;
+	
 	public Product() {
 		// TODO Auto-generated constructor stub
 	}
@@ -67,9 +73,17 @@ public class Product {
 
 
 
+	
+
+
+
+
+
+
+
 	public Product(String productName, Merchant merchant, List<String> tag, String company, String photo,
 			String description, Integer quantity, String category, String subcategory, Integer soldQuantities,
-			Integer price) {
+			Integer price, Date releaseDate) {
 		super();
 		this.productName = productName;
 		this.merchant = merchant;
@@ -82,7 +96,16 @@ public class Product {
 		this.subcategory = subcategory;
 		this.soldQuantities = soldQuantities;
 		this.price = price;
+		this.releaseDate = releaseDate;
 	}
+
+
+
+
+
+
+
+
 
 
 
@@ -212,18 +235,24 @@ public class Product {
 	}
 
 
-
-
-
-
-
-	@Override
-	public String toString() {
-		return "Product [productID=" + productID + ", productName=" + productName + ", merchant=" + merchant + ", tag="
-				+ tag + ", company=" + company + ", photo=" + photo + ", description=" + description + ", quantity="
-				+ quantity + ", category=" + category + ", subcategory=" + subcategory + ", soldQuantities="
-				+ soldQuantities + ", price=" + price + "]";
+	public Date getReleaseDate() {
+		return releaseDate;
 	}
+	
+	public void setReleaseDate(Date releaseDate) {
+		this.releaseDate = releaseDate;
+	}
+
+
+
+
+//	@Override
+//	public String toString() {
+//		return "Product [productID=" + productID + ", productName=" + productName + ", merchant=" + merchant + ", tag="
+//				+ tag + ", company=" + company + ", photo=" + photo + ", description=" + description + ", quantity="
+//				+ quantity + ", category=" + category + ", subcategory=" + subcategory + ", soldQuantities="
+//				+ soldQuantities + ", price=" + price + "]";
+//	}
 	
 	
 }

@@ -12,14 +12,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="discount1")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Discount {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Integer discountId;
 	
-	@OneToOne(fetch=FetchType.EAGER)
+	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="Product.productID")
 	private Product product;
 	

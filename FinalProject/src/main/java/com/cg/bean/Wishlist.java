@@ -2,6 +2,8 @@ package com.cg.bean;
 
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.List;
 
 import javax.persistence.Column;
@@ -15,6 +17,7 @@ import javax.persistence.ManyToMany;
 
 @Entity
 @Table(name="wishlist")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Wishlist {
 	
 	

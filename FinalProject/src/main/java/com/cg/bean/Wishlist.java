@@ -14,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 @Table(name="wishlist")
@@ -25,11 +27,11 @@ public class Wishlist {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Integer wishlistId;
 	
-	@ManyToMany(fetch=FetchType.LAZY)
+	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="User1.userId")
-	private List<User1> user;
+	private User1 user;
 	
-	@ManyToMany(fetch=FetchType.LAZY)
+	@OneToMany(fetch=FetchType.LAZY)
 	@JoinColumn(name="Product.productId")
 	private List<Product> products;
 	
@@ -40,7 +42,7 @@ public class Wishlist {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Wishlist(List<User1> user, List<Product> products, String name) {
+	public Wishlist(User1 user, List<Product> products, String name) {
 		super();
 		this.user = user;
 		this.products = products;
@@ -55,11 +57,11 @@ public class Wishlist {
 		this.wishlistId = wishlistId;
 	}
 
-	public List<User1> getUser() {
+	public User1 getUser() {
 		return user;
 	}
 
-	public void setUser(List<User1> user) {
+	public void setUser(User1 user) {
 		this.user = user;
 	}
 
@@ -80,8 +82,4 @@ public class Wishlist {
 	}
 
 	
-	
-	
-	
-
 }

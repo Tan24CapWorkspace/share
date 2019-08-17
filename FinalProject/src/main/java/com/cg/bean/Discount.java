@@ -63,6 +63,14 @@ public class Discount {
 		this.product = product;
 	}
 
+	public Double getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(Double discount) {
+		this.discount = discount;
+	}
+
 	public Date getStartDate() {
 		return startDate;
 	}

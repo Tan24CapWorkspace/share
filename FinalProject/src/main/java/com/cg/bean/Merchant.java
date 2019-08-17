@@ -5,10 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Table(name="merchant")
 public class Merchant {
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
@@ -29,7 +31,7 @@ public class Merchant {
 	@Column(length=10, nullable=false, unique=true)
 	private Long mobileno;
 	
-	@Column(length=20, nullable=false)
+	@Column(length=20)
 	private String password;
 	
 	@Column(length=100)
@@ -37,13 +39,28 @@ public class Merchant {
 	
 	@Column(length=5, nullable=false)
 	private Double rating;
+	
+	public Integer getMerchantId() {
+		return merchantId;
+	}
+
+
+
+	public void setMerchantId(Integer merchantId) {
+		this.merchantId = merchantId;
+	}
+
+	@Column(length=20)
+	private String status;
 
 	public Merchant() {
 		// TODO Auto-generated constructor stub
 	}
 
+	
+
 	public Merchant(String firstName, String lastName, String company, String emailid, Long mobileno, String password,
-			String photo, Double rating) {
+			String photo, Double rating, String status) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -53,7 +70,22 @@ public class Merchant {
 		this.password = password;
 		this.photo = photo;
 		this.rating = rating;
+		this.status = status;
 	}
+	
+
+
+	public String getStatus() {
+		return status;
+	}
+
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
 
 	public String getFirstName() {
 		return firstName;

@@ -27,21 +27,34 @@ import com.cg.bean.Capstore;
 import com.cg.bean.Cart;
 import com.cg.bean.Coupon;
 import com.cg.bean.Discount;
+import com.cg.bean.Invoice;
 import com.cg.bean.Merchant;
 import com.cg.bean.Product;
+import com.cg.bean.Promocode;
+import com.cg.bean.Return;
 import com.cg.bean.Review;
 import com.cg.bean.SecurityAns;
+import com.cg.bean.SortingFormat;
+import com.cg.bean.Token;
 import com.cg.bean.Transaction;
 import com.cg.bean.User1;
+import com.cg.bean.Wishlist;
 import com.cg.dao.AdminDAO;
 import com.cg.dao.CapStoreDAO;
 import com.cg.dao.CartDAO;
+import com.cg.dao.CouponDAO;
 import com.cg.dao.DiscountDAO;
+import com.cg.dao.InvoiceDAO;
 import com.cg.dao.MerchantDAO;
 import com.cg.dao.ProductDAO;
+import com.cg.dao.PromocodeDAO;
+import com.cg.dao.ReturnDAO;
+import com.cg.dao.ReviewDAO;
 import com.cg.dao.SecurityDAO;
+import com.cg.dao.TokenDAO;
 import com.cg.dao.TransactionDAO;
 import com.cg.dao.User1DAO;
+import com.cg.dao.WishlistDAO;
 import com.cg.exception.ApplicationException;
 import com.cg.service.LoginService;
 import com.cg.service.ProductService;
@@ -85,6 +98,27 @@ public class AppController {
 	@Autowired
 	private CartDAO cartDAO;
 	
+	@Autowired
+	private CouponDAO couponDAO;
+	
+	
+	@Autowired
+	private InvoiceDAO invoiceDAO;
+	
+	@Autowired
+	private PromocodeDAO promocodeDAO;
+	
+	@Autowired
+	private ReturnDAO returnDAO;
+	
+	@Autowired
+	private ReviewDAO reviewDAO;
+	
+	@Autowired
+	private TokenDAO tokenDAO;
+	
+	@Autowired
+	private WishlistDAO wishlistDAO;
 	@PostConstruct
 	public void setup() {
 		//Product p = new Product(100, "Vivo Y 66", 100, null, "Vivo", null, "Nothing", new Review(), category, views, quantity, soldQuantities, price)
@@ -196,15 +230,15 @@ public class AppController {
 	}
 	
 	
-	@CrossOrigin(origins = "http://localhost:4200")
-	@PostMapping("/addaccount")
-	public List<Product> getProducts(@RequestParam String category, @RequestParam String subcategory) {
-		try {
-			return service.getProducts(category, subcategory);
-		} catch (ApplicationException ex) {
-			return null;
-		}
-	}
+//	@CrossOrigin(origins = "http://localhost:4200")
+//	@PostMapping("/addaccount")
+//	public List<Product> getProducts(@RequestParam String category, @RequestParam String subcategory) {
+//		try {
+//			return service.getProducts(category, subcategory);
+//		} catch (ApplicationException ex) {
+//			return null;
+//		}
+//	}
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/similar")
@@ -226,6 +260,20 @@ public class AppController {
 			return null;
 		}
 	}
+	
+	// For getting products of a category in order of product price from low to high
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping("/sortproductsasc")
+		public ResponseEntity<List<Product>> getProductsAsc(@RequestBody SortingFormat input) {
+			List<Product> productAsc = service.getProductsAsc(input.getCategory());
+			if (productAsc.isEmpty())
+				return new ResponseEntity("Sorry! Products can't Retrieved!", HttpStatus.NOT_FOUND);
+			else
+				return new ResponseEntity<List<Product>>(productAsc, HttpStatus.OK);
+
+		}
+
+	
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping("/gettransaction")
@@ -288,18 +336,230 @@ public class AppController {
 		}
 	}
 	
+	
 	@CrossOrigin(origins = "http://localhost:4200")
-	@GetMapping("/getcapstore")
+	@GetMapping("/getinvoice")
+	public List<Invoice> getInvoice() {
+		try {
+			return invoiceDAO.findAll();
+		} catch (ApplicationException ex) {
+			return null;
+		}
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/getcoupon")
 	public List<Coupon> getCoupon() {
 		try {
-			return capstoreDAO.findAll();
+			return couponDAO.findAll();
+		} catch (ApplicationException ex) {
+			return null;
+		}
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/getpromocode")
+	public List<Promocode> getPromocode() {
+		try {
+			return promocodeDAO.findAll();
+		} catch (ApplicationException ex) {
+			return null;
+		}
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/getreturn")
+	public List<Return> getReturn() {
+		try {
+			return returnDAO.findAll();
+		} catch (ApplicationException ex) {
+			return null;
+		}
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/getreview")
+	public List<Review> getReview() {
+		try {
+			return reviewDAO.findAll();
+		} catch (ApplicationException ex) {
+			return null;
+		}
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/gettoken")
+	public List<Token> getToken() {
+		try {
+			return tokenDAO.findAll();
+		} catch (ApplicationException ex) {
+			return null;
+		}
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/getwishlist")
+	public List<Wishlist> getWishlist() {
+		try {
+			return wishlistDAO.findAll();
+		} catch (ApplicationException ex) {
+			return null;
+		}
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/getuser")
+	public List<User1> getUser() {
+		try {
+			return user1DAO.findAll();
 		} catch (ApplicationException ex) {
 			return null;
 		}
 	}
 	
 	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping("/getmerchant")
+	public List<Merchant> getMerchant() {
+		try {
+			return merchantDAO.findAll();
+		} catch (ApplicationException ex) {
+			return null;
+		}
+	}
 	
+	// setters
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping("/setadmin")
+	public void setAdmin(@RequestBody List<Admin> admin) {
+		for(Admin e : admin) {
+			adminDAO.saveAndFlush(e);
+		}
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping("/setcapstore")
+	public void setCapstore(@RequestBody List<Capstore> capstore) {
+		for(Capstore e : capstore) {
+			capstoreDAO.saveAndFlush(e);
+		}
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping("/setcart")
+	public void setCart(@RequestBody List<Cart> element) {
+		for(Cart e: element ) {
+			cartDAO.saveAndFlush(e);
+		}
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping("/setcoupon")
+	public void setCoupon(@RequestBody List<Coupon> element) {
+		for(Coupon e: element ) {
+			couponDAO.saveAndFlush(e);
+		}
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping("/setdiscount")
+	public void setDiscount(@RequestBody List<Discount> element) {
+		for(Discount e : element) {
+			discountDAO.saveAndFlush(e);
+		}
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping("/setinvoice")
+	public void setInvoice(@RequestBody List<Invoice> element) {
+		for(Invoice e : element) {
+			invoiceDAO.saveAndFlush(e);
+		}
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping("/setmerchant")
+	public void setMerchant(@RequestBody List<Merchant> element) {
+		for(Merchant e : element) {
+			merchantDAO.saveAndFlush(e);
+		}
+	}
+	
+	
+	
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping("/setproduct")
+	public void setProduct(@RequestBody List<Product> element) {
+		for(Product e : element) {
+			productDAO.saveAndFlush(e);
+		}
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping("/setpromocode")
+	public void setPromocode(@RequestBody List<Promocode> element) {
+		for(Promocode e : element) {
+			promocodeDAO.saveAndFlush(e);
+		}
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping("/setreturn")
+	public void setReturn(@RequestBody List<Return> element) {
+		for(Return e : element) {
+			returnDAO.saveAndFlush(e);
+		}
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping("/setreview")
+	public void setReview(@RequestBody List<Review> element) {
+		for(Review e : element) {
+			reviewDAO.saveAndFlush(e);
+		}
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping("/setsecurity")
+	public void setSecurity(@RequestBody List<SecurityAns> element) {
+		for(SecurityAns e : element) {
+			securityDAO.saveAndFlush(e);
+		}
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping("/settoken")
+	public void setToken(@RequestBody List<Token> element) {
+		for(Token e : element) {
+			tokenDAO.saveAndFlush(e);
+		}
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping("/settransaction")
+	public void setTransaction(@RequestBody List<Transaction> element) {
+		for(Transaction e : element) {
+			transactionDAO.saveAndFlush(e);
+		}
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping("/setuser")
+	public void setUser(@RequestBody List<User1> element) {
+		for(User1 e : element) {
+			user1DAO.saveAndFlush(e);
+		}
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@PostMapping("/setwishlist")
+	public void setWishlist(@RequestBody List<Wishlist> element) {
+		for(Wishlist e : element) {
+			wishlistDAO.saveAndFlush(e);
+		}
+	}
 	
 	
 	

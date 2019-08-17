@@ -32,6 +32,14 @@ public class Cart {
 	@ElementCollection
 	private List<Integer[]> products;
 	
+	public Integer getCartId() {
+		return cartId;
+	}
+
+	public void setCartId(Integer cartId) {
+		this.cartId = cartId;
+	}
+
 	@Column
 	private Double amount;
 	

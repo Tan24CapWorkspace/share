@@ -63,5 +63,43 @@ public class ProductService{
 		return dao.findAll();
 	}
 	
+	// Sorting by products price in ascending order
+		@Transactional(propagation = Propagation.REQUIRED)
+		public List<Product> getProductsAsc(String productCategory) {
+			List<Product> products = dao.findByProductCategoryOrderByProductPrice(productCategory);
+
+			return products;
+		}
+
+		// Sorting by products price in descending order
+		@Transactional(propagation = Propagation.REQUIRED)
+		public List<Product> getProductsDesc(String productCategory) {
+			List<Product> products1 = dao.findByProductCategoryOrderByProductPriceDesc(productCategory);
+			return products1;
+		}
+
+/*		// For getting the most viewed product
+		@Transactional(propagation = Propagation.REQUIRED)
+		public List<Product> getMostViewed(String productCategory) {
+
+			List<Product> product2 = dao.findByproductCategoryOrderByProductViewDesc(productCategory);
+			return product2;
+
+		}*/
+
+		// For getting the best-seller product
+		@Transactional(propagation = Propagation.REQUIRED)
+		public List<Product> getBestSeller(String productCategory) {
+			List<Product> product3 = dao.findByproductCategoryOrderByProductsSoldDesc(productCategory);
+			return product3;
+		}
+
+		// For getting products in a given range of price
+		@Transactional(propagation = Propagation.REQUIRED)
+		public List<Product> getProductsInRange(String productCategory, int min, int max) {
+			List<Product> product4 = dao.getProductsInRange(productCategory, min, max);
+			return product4;
+		}
+
 	
 }
